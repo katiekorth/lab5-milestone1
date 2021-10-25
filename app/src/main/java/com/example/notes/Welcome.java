@@ -54,6 +54,8 @@ public class Welcome extends AppCompatActivity {
                 logoutFunction();
                 return true;
             case R.id.addNote:
+                Intent addNoteIntent = new Intent(this, ThirdActivity.class);
+                startActivity(addNoteIntent);
                 return true;
         }
         return true;
