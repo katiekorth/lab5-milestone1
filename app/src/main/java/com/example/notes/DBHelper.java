@@ -1,5 +1,9 @@
+package com.example.notes;
+
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.example.notes.Note;
 
 import java.util.ArrayList;
 
@@ -49,7 +53,7 @@ public class DBHelper {
                 username, date, title, content));
     }
 
-    public void updateNotes(String title, String date, String content, String username) {
+    public void updateNote(String title, String date, String content, String username) {
         createTable();
         sqLiteDatabase.execSQL(String.format("UPDATE notes set content = '%s', date = '%s' where title = '%s' and username = '%s'",
                 content, date, title, username));

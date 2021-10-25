@@ -1,3 +1,5 @@
+package com.example.notes;
+
 public class Note {
     private String date;
     private String username;

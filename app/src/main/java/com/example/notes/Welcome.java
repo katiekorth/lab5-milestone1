@@ -10,14 +10,22 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.android.material.internal.NavigationMenuView;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class Welcome extends AppCompatActivity {
 
     TextView textView2;
     private NavigationMenuView welcomeMenuView;
+    public static ArrayList<Note> notes = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +39,25 @@ public class Welcome extends AppCompatActivity {
         Intent intent = getIntent();
         String str = intent.getStringExtra("message");
         textView2.setText("Welcome " + str + "!");
+
+        ArrayList<String> displayNotes = new ArrayList<>();
+        for (Note note : notes) {
+            displayNotes.add(String.format("Title:%s\nDate:%s", note.getTitle(), note.getDate()));
+        }
+
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, displayNotes);
+        ListView listView = (ListView) findViewById(R.id.noteListView);
+        listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getApplicationContext(), ThirdActivity.class);
+                intent.putExtra("noteid", position);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -54,8 +81,8 @@ public class Welcome extends AppCompatActivity {
                 logoutFunction();
                 return true;
             case R.id.addNote:
-                Intent addNoteIntent = new Intent(this, ThirdActivity.class);
-                startActivity(addNoteIntent);
+                Intent intent = new Intent(this, ThirdActivity.class);
+                startActivity(intent);
                 return true;
         }
         return true;
