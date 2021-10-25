@@ -1,5 +1,6 @@
 package com.example.notes;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -24,6 +25,8 @@ public class Welcome extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
 
         SharedPreferences sharedPreferences = getSharedPreferences("com.example.notes", Context.MODE_PRIVATE);
+        sharedPreferences.getString("username", "");
+
         textView2 = (TextView) findViewById(R.id.textViewWelcome);
         Intent intent = getIntent();
         String str = intent.getStringExtra("message");
@@ -43,9 +46,11 @@ public class Welcome extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.logout:
+                SharedPreferences sharedPreferences = getSharedPreferences("com.example.notes", Context.MODE_PRIVATE);
+                sharedPreferences.edit().remove(MainActivity.usernameKey).apply();
                 logoutFunction();
                 return true;
             case R.id.addNote:

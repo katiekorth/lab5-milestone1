@@ -11,6 +11,22 @@ import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static String usernameKey;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        String usernameKey = "username";
+        SharedPreferences sharedPreferences = getSharedPreferences("com.example.notes", Context.MODE_PRIVATE);
+        if (!sharedPreferences.getString(usernameKey, "").equals("")){
+            String username = sharedPreferences.getString(usernameKey,"");
+            setContentView(R.layout.activity_welcome);
+            goToWelcome(username);
+        } else {
+            setContentView(R.layout.activity_main);
+        }
+    }
+
     public void clickLogin(View view) {
         EditText editTextUsername = (EditText) findViewById(R.id.editTextUsername);
         String username = editTextUsername.getText().toString();
@@ -25,17 +41,4 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        String userNameKey = "username";
-        SharedPreferences sharedPreferences = getSharedPreferences("katie.korth", Context.MODE_PRIVATE);
-        if (!sharedPreferences.getString(userNameKey, "").equals("")){
-            String username = sharedPreferences.getString(userNameKey,"");
-            setContentView(R.layout.activity_welcome);
-            goToWelcome(username);
-        } else {
-            setContentView(R.layout.activity_main);
-        }
-    }
 }
