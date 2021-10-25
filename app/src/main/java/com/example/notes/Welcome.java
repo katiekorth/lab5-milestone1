@@ -35,7 +35,7 @@ public class Welcome extends AppCompatActivity {
     }
 
     public void logoutFunction() {
-        Intent logoutIntent = new Intent(this, Welcome.class);
+        Intent logoutIntent = new Intent(this, MainActivity.class);
         startActivity(logoutIntent);
     }
 
